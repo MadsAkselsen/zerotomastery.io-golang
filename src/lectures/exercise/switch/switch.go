@@ -13,5 +13,27 @@ package main
 
 import "fmt"
 
+const (
+	newborn    = 0
+	toddler    = 1
+	child 	   = 4
+	teenager   = 13
+	adult      = 18
+)
+
 func main() {
+	age := child;
+	switch age {
+	case adult:
+		fmt.Println("adult")
+	case teenager:
+		fmt.Println("teenager")
+	case child:
+		fmt.Println("child")
+	case toddler:
+		fmt.Println("toddler")
+	default:
+		fmt.Println("newborn")
+	}
+	
 }
