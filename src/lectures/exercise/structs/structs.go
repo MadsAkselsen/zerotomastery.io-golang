@@ -19,6 +19,22 @@ package main
 
 import "fmt"
 
+type Rect struct {
+	Height int
+	Width int
+}
+
+func rectPerimeter(rect Rect) int {
+	return 2 * (rect.Height + rect.Width)
+}
+
+func rectArea(rect Rect) int {
+	return rect.Height * rect.Width
+}
+
 func main() {
+
+	fmt.Println(rectPerimeter(Rect{2,3}))
+	fmt.Println(rectArea(Rect{2,4}))
 
 }
