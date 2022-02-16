@@ -18,6 +18,30 @@ package main
 
 import "fmt"
 
-func main() {
+type Product struct {
+	name string
+	price int
+}
 
+func main() {
+	ShoppingList := [4]Product{
+		{name: "Oranges", price: 10},
+		{name: "apples", price: 20},
+		{name: "Cheese", price: 43},
+	}
+
+	fmt.Println("The last item on the list", ShoppingList[len(ShoppingList)-1])
+	fmt.Println("The total number of items", len(ShoppingList))
+
+	totalPrice := 0
+	for i := 0; i < len(ShoppingList); i++ {
+		price := ShoppingList[i].price
+		totalPrice += price
+	}
+	fmt.Println("The total cost of the items", totalPrice)
+
+	ShoppingList[3].name = "Snacks"
+	ShoppingList[3].price = 200
+
+	fmt.Println("The last item on the list", ShoppingList[len(ShoppingList)-1])
 }
