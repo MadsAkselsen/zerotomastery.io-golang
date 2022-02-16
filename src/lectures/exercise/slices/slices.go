@@ -16,7 +16,29 @@ package main
 
 import "fmt"
 
-type Part string
+func showLine(line []Part) {
+	fmt.Println("---", "NEW ROUND", "---")
+	for i := 0; i < len(line); i++ {
+		part := line[i]
+		fmt.Println(part)
+	}
+}
+
+type Part string 
 
 func main() {
+	// make() function is used to preallocate a slice
+	// useful when number of elements is known, but their values are stil unknown
+	// will save computational power
+	assemblyLine := make([]Part, 3)
+	assemblyLine[0] = "Part 1"
+	assemblyLine[1] = "Part 2"
+	assemblyLine[2] = "Part 3"
+	showLine(assemblyLine)
+
+	assemblyLine = append(assemblyLine, "Part 4", "Part 5")
+	showLine(assemblyLine)
+
+	assemblyLine = assemblyLine[3:]
+	showLine(assemblyLine)
 }
