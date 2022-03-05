@@ -12,5 +12,12 @@ func sum(nums ...int) int {
 }
 
 func main() {
-fmt.Println(sum(1,2,52,4))
+
+	a := []int{1,2,3}
+	b := []int{4,5,6}
+
+	all := append(a,b...)
+	
+	answer := sum(all...)
+	fmt.Println(answer)
 }
