@@ -21,20 +21,22 @@ import "fmt"
 // }
 
 type Player struct {
-	health int
-	maxHealth int
-	energy int
-	maxEnergy int
+	health uint
+	maxHealth uint
+	energy uint
+	maxEnergy uint
 	name string
 }
 
 func (player *Player) incrementHealth(healthNum int) {
-	if (player.health + healthNum > player.maxHealth) {
+	health := int(player.health)
+	maxHealth := int(player.maxHealth)
+	if (health + healthNum > maxHealth) {
 		player.health = player.maxHealth
-	} else if (player.health + healthNum < 0){
+	} else if (health + healthNum < 0){
 		player.health = 0
 	} else {
-		player.health = player.health + healthNum
+		player.health = uint(health + healthNum)
 	}
 
 	fmt.Println()
@@ -45,25 +47,24 @@ func (player *Player) incrementHealth(healthNum int) {
 	fmt.Println("MAX ENERY:", player.maxEnergy)
 }
 
-func (player *Player) incrementEnergy(energyNum int) {
-	if (player.energy + energyNum > player.maxEnergy) {
-		player.energy = player.maxEnergy
-	} else if (player.energy + energyNum < 0){
-		player.energy = 0
-	} else {
-		player.energy = player.energy + energyNum
-	}
+// func (player *Player) incrementEnergy(energyNum int) {
+// 	if (player.energy + energyNum > player.maxEnergy) {
+// 		player.energy = player.maxEnergy
+// 	} else if (player.energy + energyNum < 0){
+// 		player.energy = 0
+// 	} else {
+// 		player.energy = player.energy + energyNum
+// 	}
 
-	fmt.Println()
-	fmt.Println(">>>>", player.name, "<<<<")
-	fmt.Println("HEALTH:", player.health)
-	fmt.Println("MAX HEALTH:", player.maxHealth)
-	fmt.Println("ENERGY:", player.energy)
-	fmt.Println("MAX ENERY:", player.maxEnergy)
-}
+// 	fmt.Println()
+// 	fmt.Println(">>>>", player.name, "<<<<")
+// 	fmt.Println("HEALTH:", player.health)
+// 	fmt.Println("MAX HEALTH:", player.maxHealth)
+// 	fmt.Println("ENERGY:", player.energy)
+// 	fmt.Println("MAX ENERY:", player.maxEnergy)
+// }
 
 func main() {
-
 	player1 := Player{
 		health: 10,
 		maxHealth: 10,
@@ -75,5 +76,6 @@ func main() {
 	player1.incrementHealth(-6)
 	player1.incrementHealth(4)
 
-
+	// player1.incrementEnergy(-3)
+	// player1.incrementEnergy(7)
 }
