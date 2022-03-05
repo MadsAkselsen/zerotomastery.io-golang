@@ -2,6 +2,15 @@ package main
 
 import "fmt"
 
-func main() {
+func sum(nums ...int) int {
+	sum := 0
+	for _, num := range nums {
+		sum += num
+	}
 
+	return sum
+}
+
+func main() {
+fmt.Println(sum(1,2,52,4))
 }
