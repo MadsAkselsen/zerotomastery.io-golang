@@ -16,7 +16,35 @@ package main
 
 import "fmt"
 
+type Operation byte
+
+const (
+	Add Operation = iota
+	Sub
+	Mul
+	Div
+)
+
+func (o Operation) calculate(v1 int, v2 int) int {
+	switch o {
+	case Add:
+		return v1+v2
+	case Sub:
+		return v1-v2
+	case Mul:
+		return v1*v2
+	case Div:
+		return v1/v2
+	}
+	panic("unhandled operation")
+}
+
 func main() {
+	add := Add
+	sub := Sub
+	mul := Mul
+	div := Div
+	
 	fmt.Println(add.calculate(2, 2)) // = 4
 
 	fmt.Println(sub.calculate(10, 3)) // = 7
