@@ -21,6 +21,60 @@ package main
 
 import "fmt"
 
-func main() {
+type VehicleHandler interface {
+	PrintInfo()
+}
 
+type Truck string
+type Car string
+type Motorcycle string
+
+type Lifts struct {
+	smallLifts []Motorcycle
+	standardLifts []Car
+	largeLifts []Truck
+}
+
+func (t Truck) PrintInfo() {
+	fmt.Println("Truck", t)
+}
+func (t Car) PrintInfo() {
+	fmt.Println("Car", t)
+}
+func (t Motorcycle) PrintInfo() {
+	fmt.Println("Motorcycle", t)
+}
+
+func directVehicles(vehicles []VehicleHandler) Lifts {
+	fmt.Println(">>> Directing <<<")
+
+	lifts := Lifts{
+		smallLifts: make([]Motorcycle, 0,),
+		standardLifts: make([]Car, 0),
+		largeLifts: make([]Truck, 0),
+	}
+
+	for i := 0; i < len(vehicles); i++ {
+		vehicle := vehicles[i]
+		vehicle.PrintInfo()
+		if truck, ok := vehicle.(Truck); ok {
+			lifts.largeLifts = append(lifts.largeLifts, truck)
+		} else if car, ok := vehicle.(Car); ok {
+			lifts.standardLifts = append(lifts.standardLifts, car)
+		} else if motorcycle, ok := vehicle.(Motorcycle); ok{
+			lifts.smallLifts = append(lifts.smallLifts, Motorcycle(motorcycle))
+		}
+	}
+	fmt.Println()
+	return lifts
+}
+
+
+
+func main() {
+	vehicles := []VehicleHandler{Truck("myTruck"), Car("myCar"), Motorcycle("myMotorcycle"), Truck("myTruck2")}
+	lifts := directVehicles(vehicles)
+	fmt.Println("Large Lifts: ",lifts.largeLifts)
+	fmt.Println("Standard Lifts: ",lifts.standardLifts)
+	fmt.Println("Small Lifts: ",lifts.smallLifts)
 }
