@@ -28,12 +28,42 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"io"
+	"log"
 	"os"
 	"strconv"
-	"time"
 )
 
 func main() {
 	files := []string{"num1.txt", "num2.txt", "num3.txt", "num4.txt", "num5.txt"}
+	total := 0
+
+	getTotal := func(path string) {
+		var totalNumber int
+		var file, err = os.OpenFile(path, os.O_RDWR, 0644)
+		if err != nil {
+			return
+		}
+		defer file.Close()
+
+		scanner := bufio.NewScanner(file)
+		for scanner.Scan() {
+			text := scanner.Text()
+			number, err := strconv.ParseInt(text, 10, 0)
+			if err != nil {
+				return
+			}
+			totalNumber = int(number)
+		}
+		if err := scanner.Err(); err != nil {
+			log.Fatal(err)
+		}
+
+		total += totalNumber
+	}
+
+	for _, path := range files {
+		getTotal(path)
+	}
+
+	fmt.Println(total)
 }
