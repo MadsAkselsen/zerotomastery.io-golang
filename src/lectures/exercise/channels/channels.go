@@ -38,4 +38,25 @@ func makeJobs() []Job {
 func main() {
 	rand.Seed(time.Now().UnixNano())
 	jobs := makeJobs()
+	results := make(chan int, 100)
+	jobsFinished := 0
+	finalResult := 0
+
+	for _, job := range jobs {
+		results <- go longCalculation(job)
+	}
+
+	for {
+		select {
+		case result := <-results:
+			fmt.Println(result)
+			finalResult += result
+			jobsFinished
+		case jobsFinished == 100:
+			fmt.Println("#### DONE ####")
+			
+			fmt.Println("FINAL: ", finalResult)
+			return
+		}
+	}
 }
