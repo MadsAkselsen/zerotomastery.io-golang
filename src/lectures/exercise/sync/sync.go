@@ -19,7 +19,59 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"io"
+	"os"
+	"strings"
+	"sync"
+	// "strconv"
+	// "time"
 )
 
-func main() {}
+func getText(rd bufio.Reader) string {
+	buf := new(strings.Builder)
+	_, err := io.Copy(buf, &rd)
+	if err != nil {
+		//* Report any errors to the terminal
+		fmt.Println("Error:", err)
+	}
+		
+	return buf.String()
+}
+
+func main() {
+	var wg sync.WaitGroup
+	sum := 0
+	textFile := "num1.txt"
+	file, err := os.Open(textFile)
+	if err != nil {
+		//* Report any errors to the terminal
+		fmt.Println("Error:", err)
+		return
+	}
+
+	rd := bufio.NewReader(file)
+	text := getText(*rd)
+	words := strings.Fields(text)
+	fmt.Println(words)
+
+	for _, word := range words {
+		wg.Add(1)
+		
+		go func() {
+			runesAmount := 0
+			for i:=0; i< len(word); i++ {
+				runesAmount ++
+			}
+			sum += runesAmount
+			wg.Done()
+		}()
+		
+
+		
+	}
+	wg.Wait()
+	fmt.Println(sum)
+
+}
